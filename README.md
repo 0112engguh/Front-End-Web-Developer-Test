@@ -74,8 +74,15 @@ syarat tampilan desain aplikasi
 
 dibawah ini list API yang digunakan
 
-alamat API dapat di akses di url http://backend-dev.cakra-tech.co.id/api/
+alamat API dapat di akses di url http://backend-dev.cakra-tech.co.id/api/</br></br>
+url http://backend-dev.cakra-tech.co.id/api/ adalah gateway api yang dipakai, jadi akan 404 jika di buka melalui browser, cara menggunakan api diatas bisa melalui postman,
+dibawah alamat gateway adalah path yang ingin digunakan, contoh :
 
+ http://backend-dev.cakra-tech.co.id/api/register</br>
+ http://backend-dev.cakra-tech.co.id/api/login</br>
+ http://backend-dev.cakra-tech.co.id/api/country</br>
+
+jadi url awalnya sama semua, hanya saja path terakhir nya berbeda, sesuai dengan kegunaan</br></br>
 API below can use without Header Authorization Bearer (JWT Authentication) </br>
 
 --register user account </br>

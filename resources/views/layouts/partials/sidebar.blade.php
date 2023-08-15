@@ -16,7 +16,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#">
+                <a class="nav-link collapsed" href="{{route('country')}}">
                     <i class="fas fa-fw fa-folder"></i>
                     <span>Country</span>
                 </a>
@@ -29,7 +29,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="tables.html">
+                <a class="nav-link" href="{{route('city')}}">
                     <i class="fas fa-fw fa-table"></i>
                     <span>City</span></a>
             </li>

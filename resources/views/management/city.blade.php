@@ -1,11 +1,11 @@
 @extends('layouts.template')
-@section('title', 'Province')
+@section('title', 'City')
 
 @section('content')
     <div class="container-fluid">
 
         <div class="d-flex">
-            <h1 class="h3 mb-2 text-gray-800 w-100">Table Province</h1>
+            <h1 class="h3 mb-2 text-gray-800 w-100">Table City</h1>
             <a href="" class="btn btn-primary mb-2 justify-content-end " data-toggle="modal"
                 data-target="#exampleModal">Input+</a>
         </div>
@@ -20,24 +20,22 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
-                                <th>Province</th>
+                                <th>City</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
 
                         <tbody>
-                            @foreach ($province as $item)
+                            @foreach ($city as $item)
                                 <tr class="text-center">
-                                    <td>{{ $item['province_name'] }}</td>
+                                    <td>{{ $item['city_name'] }}</td>
                                     <td class="w-50">
                                         <div class="d-flex justify-content-center">
                                             <a href="" class="btn btn-success mr-2 mb-2 justify-content-end"><i
                                                     class="fa fa-eye"></i></a>
-                                            <a id="editButton" href="{{ url('/province-update' . '/' . $item['id']) }}"
-                                                class="btn btn-warning mr-2 mb-2 justify-content-end"><i
+                                            <a id="editButton" href="{{ url('/city-update' . '/' . $item['id']) }}" class="btn btn-warning mr-2 mb-2 justify-content-end"><i
                                                     class="fa fa-pen"></i></a>
-
-                                            <form action="{{ url('/province-delete' . '/' . $item['id'])}}" method="POST">
+                                            <form action="{{ url('/city-delete' . '/' . $item['id'])}}" method="POST">
                                                 @csrf
                                                 @method('delete')
                                                 <button type="submit" id="deleteButton" class="btn btn-danger mb-2 justify-content-end"><i class="fa fa-trash"></i></button>
@@ -56,33 +54,31 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Input New Province</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Input New City</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
 
                     <div class="modal-body">
-                        {{-- <form id="insert-data"> --}}
-                        <form id="insert-data" action="{{ url('/province-store') }}" method="POST"
+                        <form id="insert-data" action="{{ url('/city-store') }}" method="POST"
                             enctype="multipart/form-data">
-                            {{-- <form id="insert-data" method="" enctype="multipart/form-data"> --}}
                             @csrf
                             <div class="form-group">
-                                <label for="inputProvinceCode">Province Code</label>
-                                <input type="text" class="form-control" name="province_code" id="province_code">
+                                <label for="inputCityCode">City Code</label>
+                                <input type="text" class="form-control" name="city_code" id="city_code">
                             </div>
 
                             <div class="form-group">
-                                <label for="inputProvinceName">Province Name</label>
-                                <input type="text" class="form-control" name="province_name" id="province_name">
+                                <label for="inputCityName">City Name</label>
+                                <input type="text" class="form-control" name="city_name" id="city_name">
                             </div>
 
                             <div class="form-group">
-                                <label for="">Select Country Id</label>
-                                <select class="form-control" name="country_id" id="country_id">
-                                    @foreach ($country as $item)
-                                        <option value={{ $item['id'] }}>{{ $item['country_name'] }}</option>
+                                <label for="">Select Province</label>
+                                <select class="form-control" name="province_id" id="province_id">
+                                    @foreach ($province as $item)
+                                        <option value={{ $item['id'] }}>{{ $item['province_name'] }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -100,26 +96,8 @@
         </div>
     </div>
 
-    {{-- @include('management.modal_edit') --}}
-
 @section('script')
     <script>
-        // let provinceCode = $(this).data('province_code');
-        // let provinceName = $(this).data('province_name');
-        // let countryId = $(this).data('country_id');
-        // $(body).on('click', '#simpan', function(e) {
-        //     $.ajax({
-        //       url: "{{ url('/province-store') }}",
-        //       dataType: 'json',
-        //       type: 'post',
-        //       data: {
-        //         province_code: provinceCode,
-        //         province_Name: provinceName,
-        //         country_id: countryId
-        //       }
-        //     })
-        // })
-
         $('#simpan').on('click', function() {
 
             $.confirm({
@@ -127,8 +105,6 @@
                 content: 'Simpan Data ?',
                 buttons: {
                     confirm: function() {
-                        // location.href = "{{ url('/province-store') }}"
-                        // console.log(provinceCode)
                         insertData()
                     },
                     cancel: function() {
@@ -139,18 +115,18 @@
         })
 
         function insertData() {
-            let provinceCode = $('#province_code').val();
-            let provinceName = $('#province_name').val();
-            let countryId = $('#country_id').val();
+            let cityCode = $('#city_code').val();
+            let cityName = $('#city_name').val();
+            let provinceId = $('#province_id').val();
 
             $.ajax({
-                url: "{{ url('province-store') }}",
+                url: "{{ url('city-store') }}",
                 // dataType: 'json',
                 type: 'post',
                 data: {
-                    province_code: provinceCode,
-                    province_name: provinceName,
-                    country_id: countryId
+                    city_code: cityCode,
+                    city_name: cityName,
+                    province_id: provinceId
                 },
                 success: function(data) {
                     console.log(data)
@@ -159,7 +135,8 @@
                         content: 'data Berhasil di simpan',
                         buttons: {
                             confirm: function() {
-                                location.href = "{{ url('/provinsi') }}"
+                                location.href = "{{ url('/city') }}"
+                                // console.log(provinceCode)
                             },
                             cancel: function() {}
                         }
@@ -188,13 +165,13 @@
                 }
             });
         })
-
+    
         function deleteData() {
-            let provincee = $(this).data('id');
+            let cityy = $(this).data('id');
             let token = $("meta[name='csrf-token']").attr("content");
-
+    
             $.ajax({
-                url: "{{ url('province-delete') }}",
+                url: "{{ url('city-delete') }}",
                 type: 'DELETE',
                 data: {
                     "_token": token
@@ -206,7 +183,7 @@
                         content: 'data Berhasil dihapus',
                         buttons: {
                             confirm: function() {
-                                location.href = "{{ url('/provinsi') }}"
+                                location.href = "{{ url('/city') }}"
                             },
                             cancel: function() {}
                         }
